@@ -16,19 +16,68 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QAbstractButton, QApplication, QDialog, QDialogButtonBox,
-    QDoubleSpinBox, QHBoxLayout, QLabel, QSizePolicy,
-    QSpinBox, QVBoxLayout, QWidget)
+    QDoubleSpinBox, QFrame, QHBoxLayout, QLabel,
+    QPushButton, QSizePolicy, QSpacerItem, QSpinBox,
+    QVBoxLayout, QWidget)
 
 class Ui_SettingsDialog(object):
     def setupUi(self, SettingsDialog):
         if not SettingsDialog.objectName():
             SettingsDialog.setObjectName(u"SettingsDialog")
-        SettingsDialog.resize(396, 117)
-        self.verticalLayout_3 = QVBoxLayout(SettingsDialog)
-        self.verticalLayout_3.setSpacing(4)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.verticalLayout_3.setContentsMargins(4, 4, 4, 4)
+        SettingsDialog.resize(413, 206)
+        SettingsDialog.setStyleSheet(u"QDialog {border:1px solid black}")
+        self.verticalLayout = QVBoxLayout(SettingsDialog)
+        self.verticalLayout.setSpacing(6)
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(6, 6, 6, 6)
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setSpacing(6)
+        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.label = QLabel(SettingsDialog)
+        self.label.setObjectName(u"label")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
+        font = QFont()
+        font.setPointSize(9)
+        font.setBold(False)
+        self.label.setFont(font)
+        self.label.setFrameShadow(QFrame.Plain)
+        self.label.setLineWidth(3)
+
+        self.horizontalLayout.addWidget(self.label)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout.addItem(self.horizontalSpacer)
+
+        self.closePBtn = QPushButton(SettingsDialog)
+        self.closePBtn.setObjectName(u"closePBtn")
+        sizePolicy.setHeightForWidth(self.closePBtn.sizePolicy().hasHeightForWidth())
+        self.closePBtn.setSizePolicy(sizePolicy)
+        self.closePBtn.setMinimumSize(QSize(30, 30))
+        icon = QIcon()
+        icon.addFile(u"res/close.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.closePBtn.setIcon(icon)
+        self.closePBtn.setIconSize(QSize(25, 25))
+        self.closePBtn.setFlat(True)
+
+        self.horizontalLayout.addWidget(self.closePBtn)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout)
+
+        self.line = QFrame(SettingsDialog)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.Shape.HLine)
+        self.line.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.verticalLayout.addWidget(self.line)
+
         self.mainHLayout = QHBoxLayout()
+        self.mainHLayout.setSpacing(6)
         self.mainHLayout.setObjectName(u"mainHLayout")
         self.boxVLayout = QVBoxLayout()
         self.boxVLayout.setObjectName(u"boxVLayout")
@@ -43,11 +92,11 @@ class Ui_SettingsDialog(object):
 
         self.randomFireBox = QDoubleSpinBox(SettingsDialog)
         self.randomFireBox.setObjectName(u"randomFireBox")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.randomFireBox.sizePolicy().hasHeightForWidth())
-        self.randomFireBox.setSizePolicy(sizePolicy)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.randomFireBox.sizePolicy().hasHeightForWidth())
+        self.randomFireBox.setSizePolicy(sizePolicy1)
         self.randomFireBox.setDecimals(3)
         self.randomFireBox.setMinimum(0.000000000000000)
         self.randomFireBox.setMaximum(50.000000000000000)
@@ -58,8 +107,8 @@ class Ui_SettingsDialog(object):
 
         self.newTreeBox = QDoubleSpinBox(SettingsDialog)
         self.newTreeBox.setObjectName(u"newTreeBox")
-        sizePolicy.setHeightForWidth(self.newTreeBox.sizePolicy().hasHeightForWidth())
-        self.newTreeBox.setSizePolicy(sizePolicy)
+        sizePolicy1.setHeightForWidth(self.newTreeBox.sizePolicy().hasHeightForWidth())
+        self.newTreeBox.setSizePolicy(sizePolicy1)
         self.newTreeBox.setDecimals(3)
         self.newTreeBox.setMinimum(0.000000000000000)
         self.newTreeBox.setMaximum(50.000000000000000)
@@ -70,6 +119,7 @@ class Ui_SettingsDialog(object):
 
         self.wetFactorBox = QSpinBox(SettingsDialog)
         self.wetFactorBox.setObjectName(u"wetFactorBox")
+        self.wetFactorBox.setEnabled(False)
 
         self.boxVLayout.addWidget(self.wetFactorBox)
 
@@ -90,11 +140,11 @@ class Ui_SettingsDialog(object):
 
         self.newTreeLabel = QLabel(SettingsDialog)
         self.newTreeLabel.setObjectName(u"newTreeLabel")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.newTreeLabel.sizePolicy().hasHeightForWidth())
-        self.newTreeLabel.setSizePolicy(sizePolicy1)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.newTreeLabel.sizePolicy().hasHeightForWidth())
+        self.newTreeLabel.setSizePolicy(sizePolicy2)
 
         self.textVLayout.addWidget(self.newTreeLabel)
 
@@ -107,25 +157,28 @@ class Ui_SettingsDialog(object):
         self.mainHLayout.addLayout(self.textVLayout)
 
 
-        self.verticalLayout_3.addLayout(self.mainHLayout)
+        self.verticalLayout.addLayout(self.mainHLayout)
 
-        self.buttonBox = QDialogButtonBox(SettingsDialog)
-        self.buttonBox.setObjectName(u"buttonBox")
-        self.buttonBox.setStandardButtons(QDialogButtonBox.NoButton)
-        self.buttonBox.setCenterButtons(False)
+        self.buttonBox_2 = QDialogButtonBox(SettingsDialog)
+        self.buttonBox_2.setObjectName(u"buttonBox_2")
+        self.buttonBox_2.setOrientation(Qt.Horizontal)
+        self.buttonBox_2.setStandardButtons(QDialogButtonBox.Ok)
 
-        self.verticalLayout_3.addWidget(self.buttonBox)
+        self.verticalLayout.addWidget(self.buttonBox_2)
 
+        self.verticalLayout.setStretch(2, 1)
 
         self.retranslateUi(SettingsDialog)
-        self.buttonBox.accepted.connect(SettingsDialog.accept)
-        self.buttonBox.rejected.connect(SettingsDialog.reject)
+        self.buttonBox_2.accepted.connect(SettingsDialog.accept)
+        self.buttonBox_2.rejected.connect(SettingsDialog.reject)
 
         QMetaObject.connectSlotsByName(SettingsDialog)
     # setupUi
 
     def retranslateUi(self, SettingsDialog):
         SettingsDialog.setWindowTitle(QCoreApplication.translate("SettingsDialog", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
+        self.label.setText(QCoreApplication.translate("SettingsDialog", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0441\u0440\u0435\u0434\u044b \u0441\u0438\u043c\u0443\u043b\u044f\u0446\u0438\u0438", None))
+        self.closePBtn.setText("")
         self.treeFactorBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))
         self.treeFactorBox.setPrefix("")
         self.randomFireBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))

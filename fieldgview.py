@@ -12,7 +12,7 @@ class FieldGView(QGraphicsView):
       self.setMouseTracking(True)
       # self.setCacheMode(QGraphicsView.CacheBackground)
       # self.setViewportUpdateMode(QGraphicsView.MinimalViewportUpdate)
-      scene.setItemIndexMethod(QGraphicsScene.NoIndex)
+      # scene.setItemIndexMethod(QGraphicsScene.NoIndex)
       # self.setOptimizationFlag(QGraphicsView.DontSavePainterState)
       self.cells = list()
       self.columns = 0
@@ -20,14 +20,14 @@ class FieldGView(QGraphicsView):
       self.forest_fraction = 0.0
 
    # заполнить площадь деревьями с плотностью деревьев == forest_fraction
-   def fill(self, forest_fraction=0.8):
+   def fill(self, cell_width=50, width=30, height=15, forest_fraction=0.8):
       self.forest_fraction = forest_fraction
       scene = self.scene()
       scene.clear()
       self.cells.clear()
-      width = (int)(2000)
-      height = (int)(1200)
-      cell_width = 1.0
+      # cell_width = 50
+      width = (width*cell_width)
+      height = (height*cell_width)
       for i in range(0, height, (int)(cell_width)):
          for j in range(0, width, (int)(cell_width)):
             r = cell_width / 2.0
@@ -40,6 +40,7 @@ class FieldGView(QGraphicsView):
             self.cells.append(newItem)
       self.columns = width / cell_width
       self.rows = height / cell_width
+      scene.update()
             
 
    def cellStateList(self):

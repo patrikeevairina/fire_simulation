@@ -5,8 +5,8 @@ from PySide6.QtCore import QRectF, QPointF
 import numpy
 from math import sin, cos, pi
 
-green_tree_image = QImage("green_tree.jpg")
-burn_tree_image = QImage("burn_tree.jpg")
+green_tree_image = QImage("res/list_tree.png")
+burn_tree_image = QImage("res/fire.png")
 
 class CellGItem(QGraphicsItem):
     def __init__(self, x, y, len, forest_fraction, x_offset, y_offset, x_coord, y_coord, parent=None):
