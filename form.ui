@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1920</width>
+    <height>780</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Симуляция пожаров</string>
+  </property>
+  <widget class="QWidget" name="mainWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="mainVLayout">
+      <item>
+       <layout class="QHBoxLayout" name="toolBarHLayout">
+        <item>
+         <layout class="QHBoxLayout" name="leftToolBarHLayout">
+          <item>
+           <widget class="QToolButton" name="startSimulationTBtn">
+            <property name="text">
+             <string>Запустить симуляцию</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="stopSimulationTBtn">
+            <property name="text">
+             <string>Поставить на паузу</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="rightToolBarHLayout">
+          <item>
+           <widget class="QToolButton" name="randomFieldTBtn">
+            <property name="text">
+             <string>Случайное начальное состояние</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="editFieldTBtn">
+            <property name="text">
+             <string>Редактировать поле</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QToolButton" name="settingsTBtn">
+            <property name="text">
+             <string>Настройки симуляции</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="FieldGView" name="field"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FieldGView</class>
+   <extends>QGraphicsView</extends>
+   <header>fieldgview.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
