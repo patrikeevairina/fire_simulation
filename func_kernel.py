@@ -21,14 +21,14 @@ def get_dx_dy(offset, wind, is_clean=False):
     # если нет, то считаем, что вероятность перескакивания пожара на соседа равна 50% 
     random_half_condition = lambda: (np.random.random() > 0.5) if is_clean is False else True
 
-    fuzzy_true_condition = lambda: (np.random.random() > 0.3) if is_clean is False else True
+    fuzzy_false_condition = lambda: (np.random.random() > 0.75) if is_clean is False else True
 
     def base(offset):
         return neighbours_row_column_offset if offset is True else neighbours_row_column
 
     def miss_wind(offset):
         # тут решила брать вероятность переброса пожара на соседнее дерево 25%, чтобы было правдоподобнее
-        return filter(lambda coord: random_half_condition() and (np.random.random() > 0.5), base(offset))
+        return filter(lambda coord: fuzzy_false_condition(), base(offset))
     
     def north_wind(offset):
         return filter(lambda coord: (random_half_condition() and (coord[0] == -1 or coord[0] == 0)), base(offset))
