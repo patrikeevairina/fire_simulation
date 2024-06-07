@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QGraphicsScene, QGraphicsView
-from PySide6.QtGui import QPainter
+from PySide6.QtWidgets import QGraphicsScene, QGraphicsView, QGraphicsPixmapItem
+from PySide6.QtGui import QPixmap
 from cell import CellGItem
 from math import sqrt
 
@@ -18,6 +18,7 @@ class FieldGView(QGraphicsView):
       self.columns = 0
       self.rows = 0
       self.forest_fraction = 0.0
+      
 
    # заполнить площадь деревьями с плотностью деревьев == forest_fraction
    def fill(self, cell_width=50, width=30, height=15, forest_fraction=0.8):
@@ -36,11 +37,20 @@ class FieldGView(QGraphicsView):
             base_y_offset = 2 * (-i / cell_width) * (r + magic_coef - r * sqrt(3.0) / 2.0) 
             x_offset = r - magic_coef + base_x_offset * 3.0 / 2.0  if (i / cell_width) % 2 == 0 else base_x_offset * 3.0 / 2.0
             newItem = CellGItem(j, i, cell_width, forest_fraction, x_offset, base_y_offset, (j / cell_width), (i / cell_width))
+            newItem.setZValue(-1.0)
             scene.addItem(newItem)
             self.cells.append(newItem)
       self.columns = width / cell_width
       self.rows = height / cell_width
+      # self.addDecoration()
       scene.update()
+
+   def addDecoration(self):
+      compass = QGraphicsPixmapItem(QPixmap("res/compass.png"))
+      compass.setPos(-20, -20)
+      compass.setScale(0.1)
+      compass.setZValue(0.0)
+      self.scene().addItem(compass)
             
 
    def cellStateList(self):
