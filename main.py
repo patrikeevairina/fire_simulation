@@ -15,10 +15,11 @@ def main():
     mainWindow.request_simulation_dialog.connect(simulationSettings.on_req_settings_dialog)
 
     settingsDialog.new_field_signal.connect(mainWindow.new_field_settings)
-    settingsDialog.new_simulation_signal.connect(mainWindow.new_simulation_settings)
+    settingsDialog.new_simulation_signal.connect(mainWindow.new_simulation_factors)
     
     simulationSettings.new_field_size_signal.connect(mainWindow.new_field_size_settings)
     simulationSettings.new_timeout_signal.connect(mainWindow.new_timer_timeout)
+    simulationSettings.new_simulation_mode.connect(mainWindow.new_simulation_mode)
 
     mainWindow.show()
     sys.exit(app.exec())

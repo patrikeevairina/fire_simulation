@@ -49,11 +49,14 @@ class FieldGView(QGraphicsView):
          states.append(cell.type())
       return states
    
+
    def columnCount(self):
       return self.columns
 
+
    def rowCount(self):
       return self.rows
+   
    
    def updateCells(self, new_states : list):
       for i in range(0, len(new_states)):

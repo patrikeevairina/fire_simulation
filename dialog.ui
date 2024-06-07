@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>413</width>
-    <height>206</height>
+    <width>415</width>
+    <height>240</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -118,139 +118,193 @@
     </widget>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="mainHLayout">
-     <property name="spacing">
-      <number>6</number>
-     </property>
-     <item>
-      <layout class="QVBoxLayout" name="boxVLayout">
-       <item>
-        <widget class="QSpinBox" name="treeFactorBox">
-         <property name="suffix">
-          <string>%</string>
-         </property>
-         <property name="prefix">
-          <string/>
-         </property>
-         <property name="minimum">
-          <number>5</number>
-         </property>
-         <property name="maximum">
-          <number>100</number>
-         </property>
-         <property name="singleStep">
-          <number>5</number>
-         </property>
-         <property name="value">
-          <number>80</number>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDoubleSpinBox" name="randomFireBox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="suffix">
-          <string>%</string>
-         </property>
-         <property name="decimals">
-          <number>3</number>
-         </property>
-         <property name="minimum">
-          <double>0.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>50.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.005000000000000</double>
-         </property>
-         <property name="value">
-          <double>0.001000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QDoubleSpinBox" name="newTreeBox">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="suffix">
-          <string>%</string>
-         </property>
-         <property name="decimals">
-          <number>3</number>
-         </property>
-         <property name="minimum">
-          <double>0.000000000000000</double>
-         </property>
-         <property name="maximum">
-          <double>50.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-         <property name="value">
-          <double>0.050000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QSpinBox" name="wetFactorBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="suffix">
-          <string>%</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QSpinBox" name="treeFactorBox">
+       <property name="suffix">
+        <string>%</string>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="minimum">
+        <number>5</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="singleStep">
+        <number>5</number>
+       </property>
+       <property name="value">
+        <number>80</number>
+       </property>
+      </widget>
      </item>
-     <item>
-      <layout class="QVBoxLayout" name="textVLayout">
+     <item row="0" column="1">
+      <widget class="QLabel" name="treeFactorLabel">
+       <property name="text">
+        <string>процент площади поля, занимаемой деревьями</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QDoubleSpinBox" name="randomFireBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix">
+        <string>%</string>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.005000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.001000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="randomFireLabel">
+       <property name="text">
+        <string>вероятность случайного возгорания дерева</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QDoubleSpinBox" name="newTreeBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix">
+        <string>%</string>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.050000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="newTreeLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>вероятность появления нового дерева на поле</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QSpinBox" name="wetFactorBox">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="suffix">
+        <string>%</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="wetFactorLabel">
+       <property name="text">
+        <string>влажность</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QComboBox" name="windCBox">
+       <property name="editable">
+        <bool>false</bool>
+       </property>
+       <property name="currentText">
+        <string>отсутствует</string>
+       </property>
+       <property name="currentIndex">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="QLabel" name="treeFactorLabel">
-         <property name="text">
-          <string>процент площади поля, занимаемой деревьями</string>
-         </property>
-        </widget>
+        <property name="text">
+         <string>отсутствует</string>
+        </property>
        </item>
        <item>
-        <widget class="QLabel" name="randomFireLabel">
-         <property name="text">
-          <string>вероятность случайного возгорания дерева</string>
-         </property>
-        </widget>
+        <property name="text">
+         <string>северный</string>
+        </property>
        </item>
        <item>
-        <widget class="QLabel" name="newTreeLabel">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>вероятность появления нового дерева на поле</string>
-         </property>
-        </widget>
+        <property name="text">
+         <string>южный</string>
+        </property>
        </item>
        <item>
-        <widget class="QLabel" name="wetFactorLabel">
-         <property name="text">
-          <string>влажность</string>
-         </property>
-        </widget>
+        <property name="text">
+         <string>западный</string>
+        </property>
        </item>
-      </layout>
+       <item>
+        <property name="text">
+         <string>восточный</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>с-западный</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>с-восточный</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ю-западный</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ю-восточный</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>ветер</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

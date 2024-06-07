@@ -1,7 +1,7 @@
-from enum_cell_type import CellType
+from enum_cell_type import CellType, WindType
 import numpy as np
 from typing import List
-from functools import reduce
+
 
 # получить матрицу с длиной строки = row_size
 def convert_to_2d(arr, row_size):
@@ -10,46 +10,76 @@ def convert_to_2d(arr, row_size):
     else:
         return []
     
-def convert_to_2d_iterative(arr, row_size):
-    rows = []
-    for i in range(0, len(arr), row_size):
-        rows.append(arr[i:i+row_size])
-    return rows
+
+neighbours_row_column_offset = [(0, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
+neighbours_row_column = [(-1, -1), (0, -1), (1, -1), (1, 0), (0, 1), (-1, 0)]
+
+
+def get_dx_dy(offset, wind, is_clean=False):
+    # от того, чистая ли симуляция, зависит, как считаем вероятность переброса пожара на ближайшее дерево:
+    # если симуляция чистая, то считаем, что пожар всегда перескакивает на все соседние деревья
+    # если нет, то считаем, что вероятность перескакивания пожара на соседа равна 50% 
+    random_half_condition = lambda: (np.random.random() > 0.5) if is_clean is False else True
+
+    fuzzy_true_condition = lambda: (np.random.random() > 0.3) if is_clean is False else True
+
+    def base(offset):
+        return neighbours_row_column_offset if offset is True else neighbours_row_column
+
+    def miss_wind(offset):
+        return filter(lambda coord: random_half_condition(), base(offset))
     
+    def north_wind(offset):
+        return filter(lambda coord: (random_half_condition() and (coord[0] == -1 or coord[0] == 0)), base(offset))
+    
+    def south_wind(offset):
+        return filter(lambda coord: (random_half_condition() and (coord[0] == 1 or coord[0] == 0)), base(offset))
+    
+    def west_wind(offset):
+        return filter(lambda coord: ((random_half_condition() and coord[1] == -1)
+                                    or (random_half_condition() and coord[1] == 0)), base(offset))
+    
+    def east_wind(offset):
+        return filter(lambda coord: ((random_half_condition() and coord[1] == 1)
+                                    or (random_half_condition() and coord[1] == 0)), base(offset))
+    
+    def n_west_wind(offset):
+        return filter(lambda coord: ((random_half_condition() and coord[0] <= 0 and coord[1] <= 0)), base(offset))
+    
+    def n_east_wind(offset):
+        return filter(lambda coord: ((random_half_condition() and coord[0] <= 0 and coord[1] >= 0)), base(offset))
+    
+    def s_west_wind(offset):
+        return filter(lambda coord: ((random_half_condition() and coord[0] >= 0 and coord[1] <= 0)), base(offset))
+    
+    def s_east_wind(offset):
+        return filter(lambda coord: ((random_half_condition() and coord[0] >= 0 and coord[1] >= 0)), base(offset))
+    
+    state_functions = {
+        WindType.miss: miss_wind,
+        WindType.north: north_wind,
+        WindType.south: south_wind,
+        WindType.west: west_wind,
+        WindType.east: east_wind,
+        WindType.n_west: n_west_wind, 
+        WindType.n_east: n_east_wind,
+        WindType.s_west: s_west_wind,
+        WindType.s_east: s_east_wind
+    }
+
+    return state_functions[wind](offset)
+
 
 # получить всех соседей элемента на позиции (row, column) в матрице размера (column_count, row_count)
-def get_neighbours(row, column, column_count, row_count):
-    neighbours = []
-
-    has_offset = row % 2 == 0
-    
-    has_right = column < column_count - 1
-    has_left = column > 0
-    has_top = row > 0
-    has_bottom = row < row_count - 1
-    has_top_left = has_left and has_top
-    has_top_right = has_right and has_top
-    has_bottom_left = has_left and has_bottom
-    has_bottom_right = has_right and has_bottom
-
-    if has_left:
-        neighbours.append((row, column - 1))
-    if has_right:
-        neighbours.append((row, column + 1))
-    if has_top:
-        neighbours.append((row - 1, column))
-    if has_bottom:
-        neighbours.append((row + 1, column))
-    if has_top_left and not has_offset:
-        neighbours.append((row - 1, column - 1))
-    if has_top_right and has_offset:
-        neighbours.append((row - 1, column + 1))
-    if has_bottom_left and not has_offset: 
-        neighbours.append((row + 1, column - 1))
-    if has_bottom_right and has_offset:
-        neighbours.append((row + 1, column + 1))
-
-    return neighbours
+def get_neighbours(row, column, column_count, row_count, wind, is_clean):
+    return [
+        (row + coord[0], column + coord[1])
+        for coord in get_dx_dy(row % 2 == 0, wind, is_clean)
+        if (
+            0 <= row + coord[0] < row_count and
+            0 <= column + coord[1] < column_count
+        )
+    ]
 
 
 def new_cell_state_opt(cell_state, neighbours_state: List[CellType], new_tree_factor, fire_factor) -> CellType:
@@ -74,34 +104,13 @@ def new_cell_state_opt(cell_state, neighbours_state: List[CellType], new_tree_fa
     return state_functions[cell_state](neighbours_state)
 
 
-
-def new_cell_state(cell_state, neighbours_state: list, new_tree_factor, fire_factor):
-    rand = np.random.random()
-    if cell_state == CellType.empty:
-        if rand <= new_tree_factor:
-            return CellType.tree
-        else:
-            return CellType.empty
-        
-    elif cell_state == CellType.tree:
-        if CellType.fire in neighbours_state:
-            return CellType.fire
-        elif rand <= fire_factor:
-            return CellType.fire
-        else:
-            return CellType.tree
-        
-    else:
-        return CellType.empty
-
-
-def interface(cell_states, columns, rows, new_tree_factor, fire_factor):
+def interface(cell_states, columns, rows, new_tree_factor, fire_factor, wind_factor, is_clean):
     rows = (int)(rows)
     columns = (int)(columns)
 
     cells_2d = convert_to_2d(cell_states, (int)(columns))
 
-    neighbours = [[cells_2d[nr][nc] for nr, nc in get_neighbours(row, column, columns, rows)] 
+    neighbours = [[cells_2d[nr][nc] for nr, nc in get_neighbours(row, column, columns, rows, wind_factor, is_clean)] 
                     for row in range(rows)
                     for column in range(columns)]
     
