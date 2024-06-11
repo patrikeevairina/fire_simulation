@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'dialog.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.0
+## Created by: Qt User Interface Compiler version 6.7.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -44,7 +44,7 @@ class Ui_SettingsDialog(object):
         font.setPointSize(9)
         font.setBold(False)
         self.label.setFont(font)
-        self.label.setFrameShadow(QFrame.Plain)
+        self.label.setFrameShadow(QFrame.Shadow.Plain)
         self.label.setLineWidth(3)
 
         self.horizontalLayout.addWidget(self.label)
@@ -78,10 +78,10 @@ class Ui_SettingsDialog(object):
 
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
-        self.randomFireLabel = QLabel(SettingsDialog)
-        self.randomFireLabel.setObjectName(u"randomFireLabel")
+        self.label_2 = QLabel(SettingsDialog)
+        self.label_2.setObjectName(u"label_2")
 
-        self.gridLayout.addWidget(self.randomFireLabel, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.label_2, 3, 1, 1, 1)
 
         self.newTreeLabel = QLabel(SettingsDialog)
         self.newTreeLabel.setObjectName(u"newTreeLabel")
@@ -92,21 +92,6 @@ class Ui_SettingsDialog(object):
         self.newTreeLabel.setSizePolicy(sizePolicy1)
 
         self.gridLayout.addWidget(self.newTreeLabel, 2, 1, 1, 1)
-
-        self.windCBox = QComboBox(SettingsDialog)
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.addItem("")
-        self.windCBox.setObjectName(u"windCBox")
-        self.windCBox.setEditable(False)
-
-        self.gridLayout.addWidget(self.windCBox, 3, 0, 1, 1)
 
         self.randomFireBox = QDoubleSpinBox(SettingsDialog)
         self.randomFireBox.setObjectName(u"randomFireBox")
@@ -123,20 +108,6 @@ class Ui_SettingsDialog(object):
 
         self.gridLayout.addWidget(self.randomFireBox, 1, 0, 1, 1)
 
-        self.label_2 = QLabel(SettingsDialog)
-        self.label_2.setObjectName(u"label_2")
-
-        self.gridLayout.addWidget(self.label_2, 3, 1, 1, 1)
-
-        self.treeFactorBox = QSpinBox(SettingsDialog)
-        self.treeFactorBox.setObjectName(u"treeFactorBox")
-        self.treeFactorBox.setMinimum(5)
-        self.treeFactorBox.setMaximum(100)
-        self.treeFactorBox.setSingleStep(5)
-        self.treeFactorBox.setValue(80)
-
-        self.gridLayout.addWidget(self.treeFactorBox, 0, 0, 1, 1)
-
         self.newTreeBox = QDoubleSpinBox(SettingsDialog)
         self.newTreeBox.setObjectName(u"newTreeBox")
         sizePolicy2.setHeightForWidth(self.newTreeBox.sizePolicy().hasHeightForWidth())
@@ -149,18 +120,60 @@ class Ui_SettingsDialog(object):
 
         self.gridLayout.addWidget(self.newTreeBox, 2, 0, 1, 1)
 
+        self.randomFireLabel = QLabel(SettingsDialog)
+        self.randomFireLabel.setObjectName(u"randomFireLabel")
+
+        self.gridLayout.addWidget(self.randomFireLabel, 1, 1, 1, 1)
+
+        self.treeFactorBox = QSpinBox(SettingsDialog)
+        self.treeFactorBox.setObjectName(u"treeFactorBox")
+        self.treeFactorBox.setMinimum(5)
+        self.treeFactorBox.setMaximum(100)
+        self.treeFactorBox.setSingleStep(5)
+        self.treeFactorBox.setValue(80)
+
+        self.gridLayout.addWidget(self.treeFactorBox, 0, 0, 1, 1)
+
         self.treeFactorLabel = QLabel(SettingsDialog)
         self.treeFactorLabel.setObjectName(u"treeFactorLabel")
 
         self.gridLayout.addWidget(self.treeFactorLabel, 0, 1, 1, 1)
+
+        self.windCBox = QComboBox(SettingsDialog)
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.addItem("")
+        self.windCBox.setObjectName(u"windCBox")
+        self.windCBox.setEditable(False)
+
+        self.gridLayout.addWidget(self.windCBox, 3, 0, 1, 1)
+
+        self.wetCBox = QComboBox(SettingsDialog)
+        self.wetCBox.addItem("")
+        self.wetCBox.addItem("")
+        self.wetCBox.addItem("")
+        self.wetCBox.setObjectName(u"wetCBox")
+
+        self.gridLayout.addWidget(self.wetCBox, 4, 0, 1, 1)
+
+        self.label_3 = QLabel(SettingsDialog)
+        self.label_3.setObjectName(u"label_3")
+
+        self.gridLayout.addWidget(self.label_3, 4, 1, 1, 1)
 
 
         self.verticalLayout.addLayout(self.gridLayout)
 
         self.buttonBox_2 = QDialogButtonBox(SettingsDialog)
         self.buttonBox_2.setObjectName(u"buttonBox_2")
-        self.buttonBox_2.setOrientation(Qt.Horizontal)
-        self.buttonBox_2.setStandardButtons(QDialogButtonBox.Ok)
+        self.buttonBox_2.setOrientation(Qt.Orientation.Horizontal)
+        self.buttonBox_2.setStandardButtons(QDialogButtonBox.StandardButton.Ok)
 
         self.verticalLayout.addWidget(self.buttonBox_2)
 
@@ -180,8 +193,14 @@ class Ui_SettingsDialog(object):
         SettingsDialog.setWindowTitle(QCoreApplication.translate("SettingsDialog", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438", None))
         self.label.setText(QCoreApplication.translate("SettingsDialog", u"\u041d\u0430\u0441\u0442\u0440\u043e\u0439\u043a\u0438 \u0441\u0440\u0435\u0434\u044b \u0441\u0438\u043c\u0443\u043b\u044f\u0446\u0438\u0438", None))
         self.closePBtn.setText("")
-        self.randomFireLabel.setText(QCoreApplication.translate("SettingsDialog", u"\u0432\u0435\u0440\u043e\u044f\u0442\u043d\u043e\u0441\u0442\u044c \u0441\u043b\u0443\u0447\u0430\u0439\u043d\u043e\u0433\u043e \u0432\u043e\u0437\u0433\u043e\u0440\u0430\u043d\u0438\u044f \u0434\u0435\u0440\u0435\u0432\u0430", None))
+        self.label_2.setText(QCoreApplication.translate("SettingsDialog", u"\u0432\u0435\u0442\u0435\u0440", None))
         self.newTreeLabel.setText(QCoreApplication.translate("SettingsDialog", u"\u0432\u0435\u0440\u043e\u044f\u0442\u043d\u043e\u0441\u0442\u044c \u043f\u043e\u044f\u0432\u043b\u0435\u043d\u0438\u044f \u043d\u043e\u0432\u043e\u0433\u043e \u0434\u0435\u0440\u0435\u0432\u0430 \u043d\u0430 \u043f\u043e\u043b\u0435", None))
+        self.randomFireBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))
+        self.newTreeBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))
+        self.randomFireLabel.setText(QCoreApplication.translate("SettingsDialog", u"\u0432\u0435\u0440\u043e\u044f\u0442\u043d\u043e\u0441\u0442\u044c \u0441\u043b\u0443\u0447\u0430\u0439\u043d\u043e\u0433\u043e \u0432\u043e\u0437\u0433\u043e\u0440\u0430\u043d\u0438\u044f \u0434\u0435\u0440\u0435\u0432\u0430", None))
+        self.treeFactorBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))
+        self.treeFactorBox.setPrefix("")
+        self.treeFactorLabel.setText(QCoreApplication.translate("SettingsDialog", u"\u043f\u0440\u043e\u0446\u0435\u043d\u0442 \u043f\u043b\u043e\u0449\u0430\u0434\u0438 \u043f\u043e\u043b\u044f, \u0437\u0430\u043d\u0438\u043c\u0430\u0435\u043c\u043e\u0439 \u0434\u0435\u0440\u0435\u0432\u044c\u044f\u043c\u0438", None))
         self.windCBox.setItemText(0, QCoreApplication.translate("SettingsDialog", u"\u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", None))
         self.windCBox.setItemText(1, QCoreApplication.translate("SettingsDialog", u"\u0441\u0435\u0432\u0435\u0440\u043d\u044b\u0439", None))
         self.windCBox.setItemText(2, QCoreApplication.translate("SettingsDialog", u"\u044e\u0436\u043d\u044b\u0439", None))
@@ -193,11 +212,10 @@ class Ui_SettingsDialog(object):
         self.windCBox.setItemText(8, QCoreApplication.translate("SettingsDialog", u"\u044e-\u0432\u043e\u0441\u0442\u043e\u0447\u043d\u044b\u0439", None))
 
         self.windCBox.setCurrentText(QCoreApplication.translate("SettingsDialog", u"\u043e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", None))
-        self.randomFireBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))
-        self.label_2.setText(QCoreApplication.translate("SettingsDialog", u"\u0432\u0435\u0442\u0435\u0440", None))
-        self.treeFactorBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))
-        self.treeFactorBox.setPrefix("")
-        self.newTreeBox.setSuffix(QCoreApplication.translate("SettingsDialog", u"%", None))
-        self.treeFactorLabel.setText(QCoreApplication.translate("SettingsDialog", u"\u043f\u0440\u043e\u0446\u0435\u043d\u0442 \u043f\u043b\u043e\u0449\u0430\u0434\u0438 \u043f\u043e\u043b\u044f, \u0437\u0430\u043d\u0438\u043c\u0430\u0435\u043c\u043e\u0439 \u0434\u0435\u0440\u0435\u0432\u044c\u044f\u043c\u0438", None))
+        self.wetCBox.setItemText(0, QCoreApplication.translate("SettingsDialog", u"\u043d\u043e\u0440\u043c\u0430\u043b\u044c\u043d\u0430\u044f", None))
+        self.wetCBox.setItemText(1, QCoreApplication.translate("SettingsDialog", u"\u0432\u044b\u0441\u043e\u043a\u0430\u044f", None))
+        self.wetCBox.setItemText(2, QCoreApplication.translate("SettingsDialog", u"\u043d\u0438\u0437\u043a\u0430\u044f", None))
+
+        self.label_3.setText(QCoreApplication.translate("SettingsDialog", u"\u0432\u043b\u0430\u0436\u043d\u043e\u0441\u0442\u044c", None))
     # retranslateUi
 

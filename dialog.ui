@@ -48,12 +48,11 @@
        <property name="font">
         <font>
          <pointsize>9</pointsize>
-         <weight>50</weight>
          <bold>false</bold>
         </font>
        </property>
        <property name="frameShadow">
-        <enum>QFrame::Plain</enum>
+        <enum>QFrame::Shadow::Plain</enum>
        </property>
        <property name="lineWidth">
         <number>3</number>
@@ -66,7 +65,7 @@
      <item>
       <spacer name="horizontalSpacer">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -113,16 +112,16 @@
    <item>
     <widget class="Line" name="line">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="1">
-      <widget class="QLabel" name="randomFireLabel">
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>вероятность случайного возгорания дерева</string>
+        <string>ветер</string>
        </property>
       </widget>
      </item>
@@ -136,6 +135,98 @@
        </property>
        <property name="text">
         <string>вероятность появления нового дерева на поле</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QDoubleSpinBox" name="randomFireBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix">
+        <string>%</string>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.005000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.001000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QDoubleSpinBox" name="newTreeBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix">
+        <string>%</string>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>0.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>50.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.050000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="randomFireLabel">
+       <property name="text">
+        <string>вероятность случайного возгорания дерева</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QSpinBox" name="treeFactorBox">
+       <property name="suffix">
+        <string>%</string>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="minimum">
+        <number>5</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="singleStep">
+        <number>5</number>
+       </property>
+       <property name="value">
+        <number>80</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="treeFactorLabel">
+       <property name="text">
+        <string>процент площади поля, занимаемой деревьями</string>
        </property>
       </widget>
      </item>
@@ -197,95 +288,29 @@
        </item>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QDoubleSpinBox" name="randomFireBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="suffix">
-        <string>%</string>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>50.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.005000000000000</double>
-       </property>
-       <property name="value">
-        <double>0.001000000000000</double>
-       </property>
+     <item row="4" column="0">
+      <widget class="QComboBox" name="wetCBox">
+       <item>
+        <property name="text">
+         <string>нормальная</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>высокая</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>низкая</string>
+        </property>
+       </item>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="label_2">
+     <item row="4" column="1">
+      <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>ветер</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QSpinBox" name="treeFactorBox">
-       <property name="suffix">
-        <string>%</string>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="minimum">
-        <number>5</number>
-       </property>
-       <property name="maximum">
-        <number>100</number>
-       </property>
-       <property name="singleStep">
-        <number>5</number>
-       </property>
-       <property name="value">
-        <number>80</number>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QDoubleSpinBox" name="newTreeBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="suffix">
-        <string>%</string>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>50.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-       <property name="value">
-        <double>0.050000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="treeFactorLabel">
-       <property name="text">
-        <string>процент площади поля, занимаемой деревьями</string>
+        <string>влажность</string>
        </property>
       </widget>
      </item>
@@ -294,10 +319,10 @@
    <item>
     <widget class="QDialogButtonBox" name="buttonBox_2">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="standardButtons">
-      <set>QDialogButtonBox::Ok</set>
+      <set>QDialogButtonBox::StandardButton::Ok</set>
      </property>
     </widget>
    </item>

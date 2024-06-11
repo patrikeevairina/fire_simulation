@@ -5,6 +5,7 @@ class CellType(enum.Enum):
     tree = 1
     water = 2
     fire = 3
+    burned = 4
 
 class WindType(enum.Enum):
     north = 0
@@ -16,3 +17,8 @@ class WindType(enum.Enum):
     s_west = 6
     s_east = 7
     miss = 8
+
+class WetFactor(enum.Enum):
+    low = 0
+    normal = 1
+    high = 2

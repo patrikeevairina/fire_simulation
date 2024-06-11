@@ -1,5 +1,5 @@
 from form_ui import Ui_MainWindow
-from enum_cell_type import WindType
+from enum_cell_type import WindType, WetFactor
 
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtCore import Signal, Slot, QTimer, Qt
@@ -40,13 +40,14 @@ class MainWindow(QMainWindow):
         self.new_tree_factor = 0.0005
         self.fire_factor = 0.00001
         self.wind_factor = WindType.miss
+        self.wet_factor = WetFactor.normal
 
 
     @Slot()
     def hand_simulate_step(self):
         interval = time.time()
         new_cells = interface(self.ui.field.cellStateList(), self.ui.field.columnCount(), self.ui.field.rowCount(), 
-                              self.new_tree_factor, self.fire_factor, self.wind_factor, self.is_clean)
+                              self.new_tree_factor, self.fire_factor, self.wind_factor, self.wet_factor, self.is_clean)
         update_text = "последнее обновление данных заняло {:.2f} мс ".format(((time.time() - interval) * 1000))
         self.ui.statusBar.showMessage(update_text)
         self.ui.field.updateCells(new_cells)
@@ -66,7 +67,7 @@ class MainWindow(QMainWindow):
     def update(self):
         interval = time.time()
         new_cells = interface(self.ui.field.cellStateList(), self.ui.field.columnCount(), self.ui.field.rowCount(), 
-                              self.new_tree_factor, self.fire_factor, self.wind_factor, self.is_clean)
+                              self.new_tree_factor, self.fire_factor, self.wind_factor, self.wet_factor, self.is_clean)
         # print("update {}".format(time.time() - interval))
         update_text = "последнее обновление данных заняло {:.2f} мс ".format(((time.time() - interval) * 1000))
         self.ui.statusBar.showMessage(update_text)
@@ -96,11 +97,12 @@ class MainWindow(QMainWindow):
         self.tree_fill_factor = treeFillFactor
 
     
-    @Slot(float, float, WindType)
-    def new_simulation_factors(self, randomFireFactor, newTreeFactor, windFactor):
+    @Slot(float, float, WindType, WetFactor)
+    def new_simulation_factors(self, randomFireFactor, newTreeFactor, windFactor, wetFactor):
         self.new_tree_factor = newTreeFactor
         self.fire_factor = randomFireFactor
         self.wind_factor = windFactor
+        self.wet_factor = wetFactor
 
     
     @Slot(bool)

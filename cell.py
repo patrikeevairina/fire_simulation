@@ -6,7 +6,8 @@ import numpy
 from math import sin, cos, pi
 
 green_tree_image = QImage("res/list_tree.png")
-burn_tree_image = QImage("res/fire.png")
+fire_image = QImage("res/fire.png")
+burned_tree_image = QImage("res/burned_tree.png")
 
 class CellGItem(QGraphicsItem):
     def __init__(self, x, y, len, forest_fraction, x_offset, y_offset, x_coord, y_coord, parent=None):
@@ -60,7 +61,9 @@ class CellGItem(QGraphicsItem):
             case CellType.tree:
                 return QBrush(green_tree_image.scaledToWidth(self.len))
             case CellType.fire:
-                return QBrush(burn_tree_image.scaledToWidth(self.len))
+                return QBrush(fire_image.scaledToWidth(self.len))
+            case CellType.burned:
+                return QBrush(burned_tree_image.scaledToWidth(self.len))
             case _:
                 raise NameError("no such type of cell")
 

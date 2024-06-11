@@ -1,13 +1,13 @@
 from dialog_ui import Ui_SettingsDialog
 from simulation_settings_ui import Ui_Dialog
-from enum_cell_type import WindType
+from enum_cell_type import WindType, WetFactor
 
 from PySide6.QtCore import Signal, Slot, Qt
 from PySide6.QtWidgets import QDialog
 
 class FieldSettings(QDialog):
     new_field_signal = Signal(float)
-    new_simulation_signal = Signal(float, float, WindType)
+    new_simulation_signal = Signal(float, float, WindType, WetFactor)
 
     def __init__(self, parent=None):
         QDialog.__init__(self, parent)
@@ -41,6 +41,17 @@ class FieldSettings(QDialog):
         else:
             print(str)
 
+
+    def process_wet_text(self, str):
+        if str == "нормальная":
+            return WetFactor.normal
+        elif str == "высокая":
+            return WetFactor.high
+        elif str == "низкая":
+            return WetFactor.low
+        else:
+            print(str)
+
         
 
     @Slot()
@@ -53,7 +64,8 @@ class FieldSettings(QDialog):
         randomFireFactor = self.ui.randomFireBox.value() / 100.0
         newTreeFactor = self.ui.newTreeBox.value() / 100.0
         windFactor = self.process_wind_text(self.ui.windCBox.currentData(Qt.DisplayRole))
-        self.new_simulation_signal.emit(randomFireFactor, newTreeFactor, windFactor)
+        wetFactor = self.process_wet_text(self.ui.wetCBox.currentData(Qt.DisplayRole))
+        self.new_simulation_signal.emit(randomFireFactor, newTreeFactor, windFactor, wetFactor)
         
         if self.treeFactor == self.ui.treeFactorBox.value():
             return
