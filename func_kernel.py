@@ -1,4 +1,4 @@
-from enum_cell_type import CellType, WindType
+from enum_cell_type import CellType, WindType, WetFactor
 import numpy as np
 from typing import List
 
@@ -13,60 +13,51 @@ def convert_to_2d(arr, row_size):
 
 neighbours_row_column_offset = [(0, -1), (-1, 0), (1, 0), (-1, 1), (0, 1), (1, 1)]
 neighbours_row_column = [(-1, -1), (0, -1), (1, -1), (1, 0), (0, 1), (-1, 0)]
+# condition_10 = lambda: (np.random.random() > 0.1) if is_clean is False else True
+# condition_20 = lambda: (np.random.random() > 0.2) if is_clean is False else True
+# condition_25 = lambda: (np.random.random() > 0.25) if is_clean is False else True
+# condition_40 = lambda: (np.random.random() > 0.4) if is_clean is False else True
+# condition_50 = lambda: (np.random.random() > 0.5) if is_clean is False else True
+# condition_60 = lambda: (np.random.random() > 0.6) if is_clean is False else True
+# condition_75 = lambda: (np.random.random() > 0.75) if is_clean is False else True
+# condition_80 = lambda: (np.random.random() > 0.8) if is_clean is False else True
+# condition_90 = lambda: (np.random.random() > 0.9) if is_clean is False else True
 
+def make_random_func(factor):
+    return lambda: np.random.random() > (factor)
 
-def get_dx_dy(offset, wind, wet, is_clean=False):
-    # нигде не увидела конкретных значений, связанных с пожарами при разной влажности/разном ветре, 
-    # поэтому беру значения "на глаз"
+def base(offset):
+    return neighbours_row_column_offset if offset is True else neighbours_row_column
 
-    # от того, чистая ли симуляция, зависит, как считаем вероятность переброса пожара на ближайшее дерево:
-    # если симуляция чистая, то считаем, что пожар всегда перескакивает на все соседние деревья
-    # если нет, то считаем, что вероятность перескакивания пожара на соседа равна 50% 
-    condition_10 = lambda: (np.random.random() > 0.1) if is_clean is False else True
-    condition_20 = lambda: (np.random.random() > 0.2) if is_clean is False else True
-    condition_25 = lambda: (np.random.random() > 0.25) if is_clean is False else True
-    condition_40 = lambda: (np.random.random() > 0.4) if is_clean is False else True
-    condition_50 = lambda: (np.random.random() > 0.5) if is_clean is False else True
-    condition_60 = lambda: (np.random.random() > 0.6) if is_clean is False else True
-    condition_75 = lambda: (np.random.random() > 0.75) if is_clean is False else True
-    condition_80 = lambda: (np.random.random() > 0.8) if is_clean is False else True
-    condition_90 = lambda: (np.random.random() > 0.9) if is_clean is False else True
+def miss_wind(offset):
+        # тут решила брать вероятность поменьше
+    return filter(lambda coord: True, base(offset))
     
-
-    def base(offset):
-        return neighbours_row_column_offset if offset is True else neighbours_row_column
-
-    def miss_wind(offset):
-        # тут решила брать вероятность переброса пожара на соседнее дерево 25%, чтобы было правдоподобнее
-        return filter(lambda coord: condition_80(), base(offset))
+def north_wind(offset):
+    return filter(lambda coord: coord[0] <= 0, base(offset))
     
-    def north_wind(offset):
-        return filter(lambda coord: (condition_50() and (coord[0] == -1 or coord[0] == 0)), base(offset))
+def south_wind(offset):
+    return filter(lambda coord: coord[0] >= 0,  base(offset))
     
-    def south_wind(offset):
-        return filter(lambda coord: (condition_50() and (coord[0] == 1 or coord[0] == 0)), base(offset))
+def west_wind(offset):
+    return filter(lambda coord: coord[1] <= 0, base(offset))
     
-    def west_wind(offset):
-        return filter(lambda coord: ((condition_50() and coord[1] == -1)
-                                    or (condition_50() and coord[1] == 0)), base(offset))
+def east_wind(offset):
+    return filter(lambda coord: coord[1] >= 0, base(offset))
     
-    def east_wind(offset):
-        return filter(lambda coord: ((condition_50() and coord[1] == 1)
-                                    or (condition_50() and coord[1] == 0)), base(offset))
+def n_west_wind(offset):
+    return filter(lambda coord: coord[0] <= 0 and coord[1] <= 0, base(offset))
     
-    def n_west_wind(offset):
-        return filter(lambda coord: ((condition_50() and coord[0] <= 0 and coord[1] <= 0)), base(offset))
+def n_east_wind(offset):
+    return filter(lambda coord: coord[0] <= 0 and coord[1] >= 0, base(offset))
     
-    def n_east_wind(offset):
-        return filter(lambda coord: ((condition_50() and coord[0] <= 0 and coord[1] >= 0)), base(offset))
+def s_west_wind(offset):
+    return filter(lambda coord: coord[0] >= 0 and coord[1] <= 0, base(offset))
     
-    def s_west_wind(offset):
-        return filter(lambda coord: ((condition_50() and coord[0] >= 0 and coord[1] <= 0)), base(offset))
+def s_east_wind(offset):
+    return filter(lambda coord: coord[0] >= 0 and coord[1] >= 0, base(offset))
     
-    def s_east_wind(offset):
-        return filter(lambda coord: ((condition_50() and coord[0] >= 0 and coord[1] >= 0)), base(offset))
-    
-    state_functions = {
+state_functions = {
         WindType.miss: miss_wind,
         WindType.north: north_wind,
         WindType.south: south_wind,
@@ -78,7 +69,79 @@ def get_dx_dy(offset, wind, wet, is_clean=False):
         WindType.s_east: s_east_wind
     }
 
-    return state_functions[wind](offset)
+def get_dx_dy(offset, wind, wet, is_clean=False):
+    # нигде не увидела конкретных значений, связанных с пожарами при разной влажности/разном ветре, 
+    # поэтому беру значения "на глаз"
+
+    # condition_10 = lambda: (np.random.random() > 0.1) if is_clean is False else True
+    # condition_20 = lambda: (np.random.random() > 0.2) if is_clean is False else True
+    # condition_25 = lambda: (np.random.random() > 0.25) if is_clean is False else True
+    # condition_40 = lambda: (np.random.random() > 0.4) if is_clean is False else True
+    # condition_50 = lambda: (np.random.random() > 0.5) if is_clean is False else True
+    # condition_60 = lambda: (np.random.random() > 0.6) if is_clean is False else True
+    # condition_75 = lambda: (np.random.random() > 0.75) if is_clean is False else True
+    # condition_80 = lambda: (np.random.random() > 0.8) if is_clean is False else True
+    # condition_90 = lambda: (np.random.random() > 0.9) if is_clean is False else True
+
+    # def base(offset):
+    #     return neighbours_row_column_offset if offset is True else neighbours_row_column
+
+    # def miss_wind(offset):
+    #     # тут решила брать вероятность поменьше
+    #     return filter(lambda coord: condition_80(), base(offset))
+    
+    # def north_wind(offset):
+    #     return filter(lambda coord: (condition_50() and coord[0] <= 0), base(offset))
+    
+    # def south_wind(offset):
+    #     return filter(lambda coord: (condition_50() and coord[0] <= 1),  base(offset))
+    
+    # def west_wind(offset):
+    #     return filter(lambda coord: condition_50() and coord[1] <= 0, base(offset))
+    
+    # def east_wind(offset):
+    #     return filter(lambda coord: condition_50() and coord[1] >= 0, base(offset))
+    
+    # def n_west_wind(offset):
+    #     return filter(lambda coord: ((condition_50() and coord[0] <= 0 and coord[1] <= 0)), base(offset))
+    
+    # def n_east_wind(offset):
+    #     return filter(lambda coord: ((condition_50() and coord[0] <= 0 and coord[1] >= 0)), base(offset))
+    
+    # def s_west_wind(offset):
+    #     return filter(lambda coord: ((condition_50() and coord[0] >= 0 and coord[1] <= 0)), base(offset))
+    
+    # def s_east_wind(offset):
+    #     return filter(lambda coord: ((condition_50() and coord[0] >= 0 and coord[1] >= 0)), base(offset))
+    
+    # state_functions = {
+    #     WindType.miss: miss_wind,
+    #     WindType.north: north_wind,
+    #     WindType.south: south_wind,
+    #     WindType.west: west_wind,
+    #     WindType.east: east_wind,
+    #     WindType.n_west: n_west_wind, 
+    #     WindType.n_east: n_east_wind,
+    #     WindType.s_west: s_west_wind,
+    #     WindType.s_east: s_east_wind
+    # }
+    if is_clean is True:
+        return state_functions[wind](offset)
+
+    if wet is WetFactor.high:
+        randow_because_wet = make_random_func(0.8)
+    elif wet is WetFactor.low:
+        randow_because_wet = make_random_func(0.2)
+    else:
+        randow_because_wet = make_random_func(0.6)
+
+    filtered_by_wet = filter(lambda coord: randow_because_wet(), state_functions[wind](offset))
+
+    if wind is not WindType.miss:
+        return filtered_by_wet
+
+    return filter(lambda coord: make_random_func(0.5), filtered_by_wet)
+
 
 
 # получить всех соседей элемента на позиции (row, column) в матрице размера (column_count, row_count)
