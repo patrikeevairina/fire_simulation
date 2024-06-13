@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'simulation_settings.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.7.1
+## Created by: Qt User Interface Compiler version 6.7.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -24,7 +24,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(529, 191)
+        Dialog.resize(586, 191)
         Dialog.setStyleSheet(u"QDialog {border:1px solid black}")
         self.verticalLayout = QVBoxLayout(Dialog)
         self.verticalLayout.setSpacing(6)
